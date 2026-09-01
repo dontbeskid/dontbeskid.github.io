@@ -64,6 +64,11 @@
       gap: 10px;
     }
 
+    .header-actions {
+      display: flex;
+      gap: 8px;
+    }
+
     .icon-btn {
       background: var(--surface-variant);
       color: var(--on-surface);
@@ -76,6 +81,8 @@
       justify-content: center;
       cursor: pointer;
       transition: var(--transition);
+      font-weight: bold;
+      font-size: 0.85rem;
     }
     .icon-btn:hover { background: var(--surface-hover); transform: scale(1.05); }
 
@@ -105,19 +112,18 @@
       word-break: break-word; 
     }
     
-    textarea { 
+    input[type="text"], textarea { 
       width: 100%; 
-      height: 120px; 
       background: var(--surface-variant); 
       border: 1px solid var(--surface-hover); 
       border-radius: 12px; 
       color: var(--on-surface); 
       padding: 12px; 
       font-family: monospace; 
-      resize: vertical; 
       margin-top: 10px; 
     }
-    textarea:focus { outline: 2px solid var(--accent); }
+    textarea { height: 120px; resize: vertical; }
+    input[type="text"]:focus, textarea:focus { outline: 2px solid var(--accent); }
 
     .btn { 
       background: var(--accent-container); 
@@ -181,10 +187,7 @@
       font-weight: bold; 
       font-size: 0.85rem; 
     }
-    .lesson-name {
-      font-size: 0.95rem;
-      word-break: break-word;
-    }
+    .lesson-name { font-size: 0.95rem; word-break: break-word; }
     .lesson-time { 
       font-size: 0.8rem; 
       color: var(--on-surface-sub); 
@@ -212,32 +215,69 @@
 
   <header>
     <h1><span class="icon" style="color: var(--accent);">schedule</span> dontbeschool.lol</h1>
-    <button class="icon-btn" onclick="toggleSettings()" title="Настройки">
-      <span class="icon">settings</span>
-    </button>
+    <div class="header-actions">
+      <button class="icon-btn" onclick="toggleLang()" id="langBtn">EN</button>
+      <button class="icon-btn" onclick="toggleSettings()"><span class="icon">settings</span></button>
+    </div>
   </header>
 
   <div id="settingsPanel" class="card settings-panel">
+    <div style="display: flex; align-items: center; gap: 8px;">
+      <span class="icon">cloud_download</span>
+      <strong id="t_importUrl">Импорт по ссылке (JSON):</strong>
+    </div>
+    <input type="text" id="urlInput" placeholder="https://raw.githubusercontent.com/.../schedule.json">
+    <button class="btn" onclick="fetchFromUrl()"><span class="icon">download</span> <span id="t_btnFetch">Загрузить</span></button>
+
+    <hr style="border: 0; border-top: 1px solid var(--surface-hover); margin: 16px 0;">
+
     <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
       <span class="icon">smart_toy</span>
-      <strong>Промт для LLM:</strong>
+      <strong id="t_promptTitle">Промт для LLM:</strong>
     </div>
     <div class="prompt-box" id="promptText">Преобразуй данное школьное расписание в JSON формат строго без лишнего текста. Формат: {"Понедельник": [{"name": "Математика", "time": "8:30-9:15"}]}</div>
-    <button class="btn" onclick="copyPrompt()"><span class="icon">content_copy</span> Скопировать промт</button>
+    <button class="btn" onclick="copyPrompt()"><span class="icon">content_copy</span> <span id="t_btnCopy">Скопировать промт</span></button>
 
     <hr style="border: 0; border-top: 1px solid var(--surface-hover); margin: 16px 0;">
 
     <div style="display: flex; align-items: center; gap: 8px;">
       <span class="icon">code</span>
-      <strong>JSON Расписание:</strong>
+      <strong id="t_jsonTitle">JSON Расписание:</strong>
     </div>
     <textarea id="jsonInput" placeholder='{"Понедельник": [{"name": "Физика", "time": "08:30 - 09:15"}]}'></textarea>
-    <button class="btn" onclick="saveAndRender()"><span class="icon">save</span> Сохранить и обновить</button>
+    <button class="btn" onclick="saveAndRender()"><span class="icon">save</span> <span id="t_btnSave">Сохранить и обновить</span></button>
   </div>
 
   <div id="scheduleOutput" class="days-grid"></div>
 
   <script>
+    const i18n = {
+      ru: {
+        importUrl: "Импорт по ссылке (JSON):",
+        btnFetch: "Загрузить",
+        promptTitle: "Промт для LLM:",
+        btnCopy: "Скопировать промт",
+        jsonTitle: "JSON Расписание:",
+        btnSave: "Сохранить и обновить",
+        errFormat: "Ошибка в JSON формате!",
+        errFetch: "Не удалось загрузить JSON по ссылке!",
+        promptText: 'Преобразуй данное школьное расписание в JSON формат строго без лишнего текста. Формат: {"Понедельник": [{"name": "Математика", "time": "8:30-9:15"}]}'
+      },
+      en: {
+        importUrl: "Import via URL (JSON):",
+        btnFetch: "Fetch",
+        promptTitle: "LLM Prompt:",
+        btnCopy: "Copy prompt",
+        jsonTitle: "JSON Schedule:",
+        btnSave: "Save & Render",
+        errFormat: "Invalid JSON format!",
+        errFetch: "Failed to fetch JSON from URL!",
+        promptText: 'Convert this school schedule into JSON format strictly without extra text. Format: {"Monday": [{"name": "Math", "time": "8:30-9:15"}]}'
+      }
+    };
+
+    let currentLang = localStorage.getItem('dontbeschool_lang') || 'ru';
+
     const defaultData = {
       "Пятница": [
         { name: "География", time: "08:30 - 09:15" },
@@ -245,9 +285,25 @@
       ]
     };
 
+    function applyLang() {
+      document.getElementById('langBtn').innerText = currentLang === 'ru' ? 'EN' : 'RU';
+      document.getElementById('t_importUrl').innerText = i18n[currentLang].importUrl;
+      document.getElementById('t_btnFetch').innerText = i18n[currentLang].btnFetch;
+      document.getElementById('t_promptTitle').innerText = i18n[currentLang].promptTitle;
+      document.getElementById('t_btnCopy').innerText = i18n[currentLang].btnCopy;
+      document.getElementById('t_jsonTitle').innerText = i18n[currentLang].jsonTitle;
+      document.getElementById('t_btnSave').innerText = i18n[currentLang].btnSave;
+      document.getElementById('promptText').innerText = i18n[currentLang].promptText;
+    }
+
+    function toggleLang() {
+      currentLang = currentLang === 'ru' ? 'en' : 'ru';
+      localStorage.setItem('dontbeschool_lang', currentLang);
+      applyLang();
+    }
+
     function toggleSettings() {
-      const panel = document.getElementById('settingsPanel');
-      panel.classList.toggle('active');
+      document.getElementById('settingsPanel').classList.toggle('active');
     }
 
     function render(data) {
@@ -285,13 +341,32 @@
         render(parsed);
         toggleSettings();
       } catch(e) {
-        alert('Ошибка в JSON формате!');
+        alert(i18n[currentLang].errFormat);
+      }
+    }
+
+    async function fetchFromUrl() {
+      const url = document.getElementById('urlInput').value.trim();
+      if (!url) return;
+      try {
+        const res = await fetch(url);
+        if (!res.ok) throw new Error();
+        const parsed = await res.json();
+        const raw = JSON.stringify(parsed, null, 2);
+        document.getElementById('jsonInput').value = raw;
+        localStorage.setItem('dontbeschool_data', raw);
+        render(parsed);
+        toggleSettings();
+      } catch(e) {
+        alert(i18n[currentLang].errFetch);
       }
     }
 
     function copyPrompt() {
       navigator.clipboard.writeText(document.getElementById('promptText').innerText);
     }
+
+    applyLang();
     const savedData = localStorage.getItem('dontbeschool_data');
     if (savedData) {
       document.getElementById('jsonInput').value = savedData;
