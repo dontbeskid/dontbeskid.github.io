@@ -2,8 +2,10 @@
 <html lang="ru">
 <head>
   <meta charset="utf-8">
-  <title>dontbeduo</title>
+  <title>dontbeduo / t.me/iosexploiter</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <style>
     * {
       box-sizing: border-box;
@@ -25,6 +27,8 @@
       height: 100vh;
       display: block;
       touch-action: none;
+      opacity: 0;
+      animation: fadeIn 0.8s ease-out forwards;
     }
     .chrome {
       position: fixed;
@@ -36,12 +40,16 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      padding: 20px;
+      padding: max(20px, env(safe-area-inset-top)) max(20px, env(safe-area-inset-right)) max(20px, env(safe-area-inset-bottom)) max(20px, env(safe-area-inset-left));
       z-index: 10;
-      transition: opacity 0.3s ease;
+      opacity: 0;
+      transform: translateY(-6px);
+      animation: slideDown 0.6s 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      transition: opacity 0.3s ease, transform 0.3s ease;
     }
     .chrome.is-hidden {
-      opacity: 0;
+      opacity: 0 !important;
+      transform: translateY(-6px) !important;
       pointer-events: none !important;
     }
     .header {
@@ -79,17 +87,18 @@
       font-size: 13px;
       font-weight: 500;
       cursor: pointer;
-      transition: background 0.2s;
+      transition: background 0.15s ease, transform 0.15s ease;
     }
     .pill:active {
       background: rgba(255, 255, 255, 0.25);
+      transform: scale(0.96);
     }
     .picker { display: none; }
     
     #debug-info {
       position: fixed;
-      top: 70px;
-      left: 20px;
+      top: calc(max(20px, env(safe-area-inset-top)) + 50px);
+      left: max(20px, env(safe-area-inset-left));
       background: rgba(0, 0, 0, 0.6);
       backdrop-filter: blur(10px);
       padding: 6px 10px;
@@ -100,17 +109,19 @@
       z-index: 30;
       pointer-events: none;
       border: 1px solid rgba(255, 255, 255, 0.08);
+      opacity: 0;
+      animation: fadeIn 0.6s 0.4s ease-out forwards;
       transition: opacity 0.3s ease;
     }
     #debug-info.is-hidden {
-      opacity: 0;
+      opacity: 0 !important;
     }
 
     .status-panel {
       position: fixed;
       top: 50%;
       left: 50%;
-      transform: translate(-50%, -50%);
+      transform: translate(-50%, -46%) scale(0.95);
       background: rgba(18, 18, 20, 0.85);
       backdrop-filter: blur(30px);
       -webkit-backdrop-filter: blur(30px);
@@ -122,6 +133,14 @@
       width: 88%;
       max-width: 340px;
       box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+      opacity: 0;
+      animation: modalAppear 0.5s 0.1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+    .status-panel.is-dismissed {
+      opacity: 0;
+      transform: translate(-50%, -54%) scale(0.92);
+      pointer-events: none;
     }
     .status-panel h2 {
       margin: 0 0 8px 0;
@@ -139,6 +158,11 @@
       margin-top: 18px;
       width: 100%;
       cursor: pointer;
+      transition: transform 0.15s ease, background 0.15s ease;
+    }
+    .btn-action:active {
+      transform: scale(0.97);
+      background: #2563eb;
     }
     .warning-text {
       font-size: 12px;
@@ -146,6 +170,16 @@
       margin-top: 12px;
       display: none;
       line-height: 1.4;
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+    @keyframes slideDown {
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes modalAppear {
+      to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
     }
   </style>
 </head>
@@ -165,7 +199,6 @@
         <input class="picker" type="file" accept="image/*">
       </label>
       <button class="pill" id="calibrate-btn" type="button" data-i18n="reset">Сбросить в 0°</button>
-      <button class="pill" id="fullscreen-btn" type="button" data-i18n="fullscreen">Экран</button>
       <button class="pill" id="hide-ui-btn" type="button" data-i18n="hideUi">Скрыть UI</button>
     </div>
   </div>
@@ -186,7 +219,6 @@
       ru: {
         upload: 'Фото',
         reset: 'Сбросить в 0°',
-        fullscreen: 'Экран',
         hideUi: 'Скрыть UI',
         modalTitle: '3D Fold Effect',
         modalDesc: 'Разрешите доступ к гироскопу для управления наклоном устройства.',
@@ -194,12 +226,11 @@
         enableBtn: 'Включить',
         debugAngle: 'Угол',
         defaultTitle: 'dontbeduo',
-        defaultSub: 't.me/dontbeskid'
+        defaultSub: 't.me/iosexploiter'
       },
       en: {
         upload: 'Photo',
         reset: 'Reset to 0°',
-        fullscreen: 'Fullscreen',
         hideUi: 'Hide UI',
         modalTitle: '3D Fold Effect',
         modalDesc: 'Grant motion permissions to enable device tilt controls.',
@@ -207,7 +238,7 @@
         enableBtn: 'Enable',
         debugAngle: 'Angle',
         defaultTitle: 'dontbeduo',
-        defaultSub: 't.me/dontbeskid'
+        defaultSub: 't.me/iosexploiter'
       }
     };
 
@@ -223,7 +254,7 @@
     }
 
     const MAX_STRETCH = 1.7;
-    const FOLLOW = 4.0;
+    const FOLLOW = 12.0;
 
     const VERTEX = `#version 300 es
     precision highp float;
@@ -488,7 +519,6 @@
     const debugInfo = document.getElementById('debug-info');
     const filePicker = document.querySelector('.picker');
     const chrome = document.getElementById('chrome');
-    const fullscreenBtn = document.getElementById('fullscreen-btn');
     const hideUiBtn = document.getElementById('hide-ui-btn');
     const calibrateBtn = document.getElementById('calibrate-btn');
     const langBtn = document.getElementById('lang-btn');
@@ -506,8 +536,8 @@
 
     let baseGamma = 0;
     let lastGamma = 0;
-    const FILTER_ALPHA = 0.04;
-    const SENSITIVITY = 1.0;
+    const FILTER_ALPHA = 0.25;
+    const SENSITIVITY = 1.35;
 
     if (location.protocol !== 'https:' && location.hostname !== 'localhost' && location.hostname !== '127.0.0.1') {
       httpsWarning.style.display = 'block';
@@ -535,7 +565,7 @@
     window.addEventListener('pointermove', (e) => {
       if (!isTouching) return;
       const deltaX = e.clientX - touchStartX;
-      const factor = 180 / (window.innerWidth * 0.5);
+      const factor = 180 / (window.innerWidth * 0.4);
       rawTarget = Math.max(-180, Math.min(180, touchStartTarget + deltaX * factor));
     });
 
@@ -548,14 +578,15 @@
       lastGamma = gamma;
 
       let relativeGamma = gamma - baseGamma;
-      if (Math.abs(relativeGamma) < 1.5) relativeGamma = 0;
+      if (Math.abs(relativeGamma) < 1.0) relativeGamma = 0;
 
       rawTarget = Math.max(-180, Math.min(180, relativeGamma * SENSITIVITY));
       debugInfo.innerText = `${i18n[currentLang].debugAngle}: ${Math.round(filteredTarget)}°`;
     }
 
     startBtn.addEventListener('click', function() {
-      modal.style.display = 'none';
+      modal.classList.add('is-dismissed');
+      setTimeout(() => modal.style.display = 'none', 300);
 
       if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
         DeviceOrientationEvent.requestPermission()
@@ -581,14 +612,6 @@
         URL.revokeObjectURL(img.src);
       };
       img.src = URL.createObjectURL(file);
-    });
-
-    fullscreenBtn.addEventListener('click', () => {
-      if (!document.fullscreenElement) {
-        document.documentElement.requestFullscreen().catch(() => {});
-      } else {
-        document.exitFullscreen();
-      }
     });
 
     hideUiBtn.addEventListener('click', () => {
