@@ -1,8 +1,0 @@
-Package: com.dontbeskid.example
-Name: Example Package
-Version: 1.0
-Architecture: iphoneos-arm64
-Description: Test package. Delete src/com.dontbeskid.example and debs/*example* when you add real ones.
-Maintainer: dontbeskid
-Author: dontbeskid
-Section: Miscellaneous
