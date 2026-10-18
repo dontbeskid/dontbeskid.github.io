@@ -10,7 +10,25 @@ Depiction: https://dontbeskid.github.io/depictions/com.dontbeskid.example.html
 SileoDepiction: https://dontbeskid.github.io/depictions/native/com.dontbeskid.example.json
 Filename: debs/com.dontbeskid.example_1.0_iphoneos-arm64.deb
 Size: 730
-MD5sum: 3f57303ded357741d3bc7dbdf1b7729e
-SHA1: adf947b3ac3b13c54268186c4472fbaa6acd67a4
-SHA256: 9a346ca1919dae7576a809faea5ac21dd9821f6c3423f4ef60639b4f0171477f
+MD5sum: 4f4d09ee0baf55bf1b858670d391bb73
+SHA1: 333b7e64ddb19a0e689a2d49820b8e502110b219
+SHA256: b1bde89b877588766bf3fb228593634fdb88b31b457e2e7545ea269c4e1eee61
+
+Package: com.yan.anitime
+Name: AniTime
+Version: 1.0.1k
+Architecture: iphoneos-arm64
+Description: Animated anime characters as your clock digits.
+Maintainer: dontbeskid
+Author: yan
+Section: Tweaks
+Depends: dev.theos.orion (>= 1.0.0), firmware (>= 14.0), com.ginsu.comet
+Icon: https://dontbeskid.github.io/icons/com.yan.anitime.png
+Depiction: https://dontbeskid.github.io/depictions/com.yan.anitime.html
+SileoDepiction: https://dontbeskid.github.io/depictions/native/com.yan.anitime.json
+Filename: debs/com.yan.anitime_1.0.1k_iphoneos-arm64.deb
+Size: 598096
+MD5sum: c78195bd7711d218b3aaab6b77fc89e8
+SHA1: 2ac5d3e483043be42f00ca823367d7f5a05fdf8f
+SHA256: f8499e6fcce9ccf8f24a1e103a1c4c1becdb898d3ef448b8b269dcd1b907cf98
 
