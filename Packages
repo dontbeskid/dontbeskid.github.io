@@ -1,0 +1,16 @@
+Package: com.dontbeskid.example
+Name: Example Package
+Version: 1.0
+Architecture: iphoneos-arm64
+Description: Test package. Delete src/com.dontbeskid.example and debs/*example* when you add real ones.
+Maintainer: dontbeskid
+Author: dontbeskid
+Section: Miscellaneous
+Depiction: https://dontbeskid.github.io/depictions/com.dontbeskid.example.html
+SileoDepiction: https://dontbeskid.github.io/depictions/native/com.dontbeskid.example.json
+Filename: debs/com.dontbeskid.example_1.0_iphoneos-arm64.deb
+Size: 730
+MD5sum: 3f57303ded357741d3bc7dbdf1b7729e
+SHA1: adf947b3ac3b13c54268186c4472fbaa6acd67a4
+SHA256: 9a346ca1919dae7576a809faea5ac21dd9821f6c3423f4ef60639b4f0171477f
+

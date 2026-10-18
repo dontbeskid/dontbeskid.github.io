@@ -1,0 +1,19 @@
+{
+  "_auto": true,
+  "minVersion": "0.1",
+  "class": "DepictionTabView",
+  "tintColor": "#8e8e8e",
+  "tabs": [
+    {
+      "tabname": "Details",
+      "class": "DepictionStackView",
+      "views": [
+        { "class": "DepictionHeaderView", "title": "Example Package" },
+        { "class": "DepictionMarkdownView", "markdown": "Test package. Delete src/com.dontbeskid.example and debs/*example* when you add real ones." },
+        { "class": "DepictionSeparatorView" },
+        { "class": "DepictionTableTextView", "title": "Version", "text": "1.0" },
+        { "class": "DepictionTableTextView", "title": "Author", "text": "dontbeskid" }
+      ]
+    }
+  ]
+}
