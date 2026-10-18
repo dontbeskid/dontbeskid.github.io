@@ -2,62 +2,149 @@
 <html lang="ru">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f2f2f7" media="(prefers-color-scheme: light)">
 <title>cloudrepo</title>
-<link rel="icon" href="CydiaIcon.png">
+<link rel="icon" href="petuh.jpeg">
+<link rel="apple-touch-icon" href="petuh.jpeg">
 <style>
-  :root{--bg:#0a0a0a;--card:#141414;--line:#2a2a2a;--tx:#f5f5f5;--mut:#8a8a8a;--ac:#f5f5f5}
-  *{box-sizing:border-box}
-  body{margin:0;background:var(--bg);color:var(--tx);font-family:-apple-system,system-ui,"Segoe UI",sans-serif}
-  .wrap{max-width:760px;margin:0 auto;padding:32px 18px 60px}
-  header{text-align:center;margin-bottom:28px}
-  header img{width:84px;height:84px;border-radius:20px}
-  h1{margin:12px 0 4px;font-size:28px}
-  .sub{color:var(--mut);font-size:15px}
-  .btns{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:22px 0 8px}
-  .btn{background:var(--ac);color:#111;text-decoration:none;font-weight:600;padding:11px 18px;border-radius:12px;font-size:15px;border:0;cursor:pointer}
-  .btn.alt{background:var(--card);color:var(--tx);border:1px solid var(--line)}
-  .url{text-align:center;color:var(--mut);font-size:13px;margin-top:10px;word-break:break-all}
-  h2{font-size:18px;margin:34px 0 12px}
-  .pkg{display:flex;justify-content:space-between;align-items:center;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin-bottom:10px}
-  .pkg b{font-size:16px} .pkg .d{color:var(--mut);font-size:13px;margin-top:3px}
-  .pkg .v{color:var(--mut);font-size:12px;margin-left:6px}
-  .pkg a{white-space:nowrap}
-  .empty{color:var(--mut);text-align:center;padding:20px}
-  footer{text-align:center;color:var(--mut);font-size:12px;margin-top:40px}
+  :root{
+    --bg:#f2f2f7; --card:#ffffff; --tx:#000; --mut:#8e8e93; --line:rgba(60,60,67,.18);
+    --fill:rgba(120,120,128,.16); --btn:#000; --btn-tx:#fff;
+    --icon-a:#9a9a9f; --icon-b:#5c5c61;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#000; --card:#1c1c1e; --tx:#fff; --mut:#8e8e93; --line:rgba(84,84,88,.55);
+      --fill:rgba(120,120,128,.32); --btn:#fff; --btn-tx:#000;
+      --icon-a:#8e8e93; --icon-b:#48484a;
+    }
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0;background:var(--bg);color:var(--tx);
+    font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display","Helvetica Neue",Arial,sans-serif;
+    padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:680px;margin:0 auto;padding:0 20px 60px}
+
+  /* header */
+  .top{padding:44px 0 6px;display:flex;align-items:center;gap:16px}
+  .logo{width:72px;height:72px;border-radius:22.37%;flex:none;object-fit:cover;box-shadow:0 1px 3px rgba(0,0,0,.25)}
+  h1{margin:0;font-size:34px;line-height:1.1;font-weight:700;letter-spacing:.2px}
+  .sub{color:var(--mut);font-size:15px;margin-top:3px}
+  .gets{display:flex;gap:10px;margin:18px 0 0;align-items:center}
+
+  /* buttons */
+  .get{
+    appearance:none;border:0;cursor:pointer;text-decoration:none;display:inline-block;
+    background:var(--btn);color:var(--btn-tx);font:700 15px/1 -apple-system,system-ui,sans-serif;
+    padding:9px 20px;border-radius:999px;letter-spacing:.3px;transition:opacity .15s,transform .1s;
+  }
+  .get:active{opacity:.6;transform:scale(.96)}
+  .get.soft{background:var(--fill);color:var(--tx)}
+  .get.big{padding:12px 26px;font-size:16px}
+
+  /* other managers */
+  details{margin-top:14px}
+  summary{color:var(--mut);font-size:14px;cursor:pointer;list-style:none;display:inline-block}
+  summary::-webkit-details-marker{display:none}
+  summary::after{content:" ›";}
+  details[open] summary::after{content:" ⌄";}
+  .more{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+
+  /* search */
+  .search{
+    margin:26px 0 8px;display:flex;align-items:center;gap:8px;background:var(--fill);
+    border-radius:10px;padding:8px 10px;
+  }
+  .search svg{width:16px;height:16px;flex:none;opacity:.55}
+  .search input{
+    flex:1;border:0;outline:0;background:transparent;color:var(--tx);font-size:17px;
+    font-family:inherit;min-width:0;
+  }
+  .search input::placeholder{color:var(--mut)}
+
+  /* sections + rows */
+  h2{font-size:22px;font-weight:700;margin:28px 0 10px;letter-spacing:.2px}
+  .group{background:var(--card);border-radius:16px;overflow:hidden}
+  .row{display:flex;align-items:center;gap:14px;padding:12px 14px;text-decoration:none;color:inherit}
+  .row + .row{position:relative}
+  .row + .row::before{content:"";position:absolute;top:0;right:0;left:90px;height:.5px;background:var(--line)}
+  .ico{
+    width:60px;height:60px;border-radius:22.37%;flex:none;overflow:hidden;
+    background:linear-gradient(145deg,var(--icon-a),var(--icon-b));
+    display:flex;align-items:center;justify-content:center;
+    color:#fff;font-size:26px;font-weight:700;box-shadow:0 0 0 .5px var(--line);
+  }
+  .ico img{width:100%;height:100%;object-fit:cover;display:block}
+  .meta{flex:1;min-width:0}
+  .name{font-size:17px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .desc{font-size:13px;color:var(--mut);margin-top:2px;
+        display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .ver{font-size:12px;color:var(--mut);margin-top:3px}
+  .empty{color:var(--mut);text-align:center;padding:28px 12px;font-size:15px}
+  footer{text-align:center;color:var(--mut);font-size:12px;margin-top:36px}
+  .toast{
+    position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom));transform:translate(-50%,20px);
+    background:var(--btn);color:var(--btn-tx);padding:10px 18px;border-radius:999px;font-size:14px;font-weight:600;
+    opacity:0;pointer-events:none;transition:.25s;
+  }
+  .toast.show{opacity:1;transform:translate(-50%,0)}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <header>
-    <img src="CydiaIcon.png" alt="">
-    <h1>cloudrepo</h1>
-    <div class="sub">Добавь репозиторий в свой менеджер пакетов</div>
-    <div class="btns">
-      <a class="btn" href="sileo://source/https://dontbeskid.github.io/">Open in Sileo</a>
-      <a class="btn alt" href="zbra://sources/add/https://dontbeskid.github.io/">Add to Zebra</a>
-      <a class="btn alt" href="cydia://url/https://cydia.saurik.com/api/share#?source=https://dontbeskid.github.io/">Add to Cydia</a>
-      <a class="btn alt" href="installer://add/repo=https://dontbeskid.github.io/">Add to Installer</a>
-      <button class="btn alt" id="copy">Copy URL</button>
+
+  <div class="top">
+    <img class="logo" src="petuh.jpeg" alt="">
+    <div>
+      <h1>cloudrepo</h1>
+      <div class="sub">Репозиторий для Sileo</div>
     </div>
-    <div class="url">https://dontbeskid.github.io/</div>
-  </header>
+  </div>
 
-  <h2>Пакеты</h2>
-  <div id="list"><div class="empty">Загрузка...</div></div>
+  <div class="gets">
+    <a class="get big" href="sileo://source/https://dontbeskid.github.io/">Open in Sileo</a>
+    <button class="get soft big" id="copy">Copy URL</button>
+  </div>
 
-  <footer>Powered by GitHub Pages</footer>
+  <details>
+    <summary>Другие менеджеры</summary>
+    <div class="more">
+      <a class="get soft" href="zbra://sources/add/https://dontbeskid.github.io/">Zebra</a>
+      <a class="get soft" href="cydia://url/https://cydia.saurik.com/api/share#?source=https://dontbeskid.github.io/">Cydia</a>
+      <a class="get soft" href="installer://add/repo=https://dontbeskid.github.io/">Installer</a>
+    </div>
+  </details>
+
+  <label class="search">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+    <input id="q" type="search" placeholder="Поиск" autocomplete="off" autocapitalize="off" spellcheck="false">
+  </label>
+
+  <div id="list"><div class="group"><div class="empty">Загрузка…</div></div></div>
+
+  <footer>dontbeskid.github.io</footer>
 </div>
+<div class="toast" id="toast">Скопировано</div>
 
 <script>
 const REPO = "https://dontbeskid.github.io/";
-document.getElementById("copy").onclick = async function () {
-  try { await navigator.clipboard.writeText(REPO); this.textContent = "Copied!"; }
+
+/* copy */
+const toast = document.getElementById("toast");
+function showToast(t){ toast.textContent = t; toast.classList.add("show"); setTimeout(()=>toast.classList.remove("show"),1500); }
+document.getElementById("copy").onclick = async () => {
+  try { await navigator.clipboard.writeText(REPO); showToast("Скопировано"); }
   catch (e) { prompt("Скопируй:", REPO); }
-  setTimeout(() => (this.textContent = "Copy URL"), 1500);
 };
 
-function parse(text) {
+/* parse Packages */
+function parse(text){
   return text.split(/\n\s*\n/).map(b => {
     const o = {}; let last = null;
     b.split("\n").forEach(l => {
@@ -69,30 +156,66 @@ function parse(text) {
   }).filter(p => p.Package);
 }
 
-fetch("Packages?t=" + Date.now()).then(r => r.text()).then(t => {
-  const pk = parse(t);
+let PKGS = [];
+
+function row(p){
+  const a = document.createElement("a");
+  a.className = "row";
+  a.href = "sileo://package/" + encodeURIComponent(p.Package);
+
+  const ico = document.createElement("div"); ico.className = "ico";
+  if (p.Icon && /^https?:/.test(p.Icon)) {
+    const im = document.createElement("img"); im.src = p.Icon; im.alt = "";
+    im.onerror = () => { im.remove(); ico.textContent = (p.Name || p.Package)[0].toUpperCase(); };
+    ico.append(im);
+  } else {
+    ico.textContent = (p.Name || p.Package)[0].toUpperCase();
+  }
+
+  const meta = document.createElement("div"); meta.className = "meta";
+  const n = document.createElement("div"); n.className = "name"; n.textContent = p.Name || p.Package;
+  const d = document.createElement("div"); d.className = "desc"; d.textContent = (p.Description || "").split("\n")[0];
+  const v = document.createElement("div"); v.className = "ver"; v.textContent = "v" + p.Version;
+  meta.append(n, d, v);
+
+  const g = document.createElement("span"); g.className = "get"; g.textContent = "GET";
+  a.append(ico, meta, g);
+  return a;
+}
+
+function render(filter){
   const box = document.getElementById("list");
-  if (!pk.length) { box.innerHTML = '<div class="empty">Пока нет пакетов</div>'; return; }
   box.innerHTML = "";
-  const latest = {};
-  pk.forEach(p => { latest[p.Package] = p; });
-  Object.values(latest).forEach(p => {
-    const el = document.createElement("div");
-    el.className = "pkg";
-    const left = document.createElement("div");
-    const b = document.createElement("b"); b.textContent = p.Name || p.Package;
-    const v = document.createElement("span"); v.className = "v"; v.textContent = "v" + p.Version;
-    const d = document.createElement("div"); d.className = "d"; d.textContent = (p.Description || "").split("\n")[0];
-    const t = document.createElement("div"); t.append(b, v);
-    left.append(t, d);
-    const a = document.createElement("a");
-    a.className = "btn alt"; a.textContent = "Open";
-    a.href = "sileo://package/" + encodeURIComponent(p.Package);
-    el.append(left, a);
-    box.append(el);
+  const f = (filter || "").trim().toLowerCase();
+  const items = PKGS.filter(p =>
+    !f || (p.Name || "").toLowerCase().includes(f) ||
+    p.Package.toLowerCase().includes(f) ||
+    (p.Description || "").toLowerCase().includes(f));
+
+  if (!items.length) {
+    box.innerHTML = '<div class="group"><div class="empty">' + (PKGS.length ? "Ничего не найдено" : "Пока нет пакетов") + '</div></div>';
+    return;
+  }
+  const sections = {};
+  items.forEach(p => { (sections[p.Section || "Tweaks"] ||= []).push(p); });
+  Object.keys(sections).sort().forEach(s => {
+    const h = document.createElement("h2"); h.textContent = s;
+    const grp = document.createElement("div"); grp.className = "group";
+    sections[s].sort((a, b) => (a.Name || a.Package).localeCompare(b.Name || b.Package))
+               .forEach(p => grp.append(row(p)));
+    box.append(h, grp);
   });
+}
+
+document.getElementById("q").addEventListener("input", e => render(e.target.value));
+
+fetch("Packages?t=" + Date.now()).then(r => r.text()).then(t => {
+  const latest = {};
+  parse(t).forEach(p => { latest[p.Package] = p; });
+  PKGS = Object.values(latest);
+  render("");
 }).catch(() => {
-  document.getElementById("list").innerHTML = '<div class="empty">Не удалось загрузить список</div>';
+  document.getElementById("list").innerHTML = '<div class="group"><div class="empty">Не удалось загрузить список</div></div>';
 });
 </script>
 </body>
