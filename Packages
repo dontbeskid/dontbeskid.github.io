@@ -1,3 +1,22 @@
+Package: com.ethxnn88.visibleisland
+Name: Visible Island
+Description: Enable and fix Dynamic Island on older devices.
+Maintainer: dontbeskid
+Author: ethxnn88
+Section: Tweaks
+Depends: mobilesubstrate (>= 0.9.5000), preferenceloader, firmware (>= 16.0)
+Architecture: iphoneos-arm64
+Version: 2.0
+Installed-Size: 360
+Icon: https://dontbeskid.github.io/icons/com.ethxnn88.visibleisland.png
+Depiction: https://dontbeskid.github.io/depictions/com.ethxnn88.visibleisland.html
+SileoDepiction: https://dontbeskid.github.io/depictions/native/com.ethxnn88.visibleisland.json
+Filename: debs/com.ethxnn88.visibleisland_2.0_iphoneos-arm64.deb
+Size: 43178
+MD5sum: a9afb5526bbfef5bffd917cb5feb4abe
+SHA1: 6903f7f2a53c51e9cc25d97a48666bed4e8a5f8d
+SHA256: f9c1e3ddedd65c849cd868115a30dd96571025300e4c9c6fc415a88821f7e093
+
 Package: com.yan.anitime
 Name: AniTime
 Version: 1.0.1k

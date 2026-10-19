@@ -1,0 +1,19 @@
+{
+  "_auto": true,
+  "minVersion": "0.1",
+  "class": "DepictionTabView",
+  "tintColor": "#8e8e8e",
+  "tabs": [
+    {
+      "tabname": "Details",
+      "class": "DepictionStackView",
+      "views": [
+        { "class": "DepictionHeaderView", "title": "Visible Island" },
+        { "class": "DepictionMarkdownView", "markdown": "Enable and fix Dynamic Island on older devices." },
+        { "class": "DepictionSeparatorView" },
+        { "class": "DepictionTableTextView", "title": "Version", "text": "2.0" },
+        { "class": "DepictionTableTextView", "title": "Author", "text": "ethxnn88" }
+      ]
+    }
+  ]
+}
