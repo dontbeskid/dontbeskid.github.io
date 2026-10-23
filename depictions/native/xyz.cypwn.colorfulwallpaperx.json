@@ -1,0 +1,19 @@
+{
+  "_auto": true,
+  "minVersion": "0.1",
+  "class": "DepictionTabView",
+  "tintColor": "#8e8e8e",
+  "tabs": [
+    {
+      "tabname": "Details",
+      "class": "DepictionStackView",
+      "views": [
+        { "class": "DepictionHeaderView", "title": "Colorful Wallpaper X" },
+        { "class": "DepictionMarkdownView", "markdown": "Dynamic wallpaper with colorful effects. Cracked by CBZ!" },
+        { "class": "DepictionSeparatorView" },
+        { "class": "DepictionTableTextView", "title": "Version", "text": "5.5k" },
+        { "class": "DepictionTableTextView", "title": "Author", "text": "Lessica" }
+      ]
+    }
+  ]
+}
