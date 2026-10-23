@@ -12,9 +12,9 @@ Depiction: https://dontbeskid.github.io/depictions/com.dontbeskid.colorfulwallpa
 SileoDepiction: https://dontbeskid.github.io/depictions/native/com.dontbeskid.colorfulwallpaperx.json
 Filename: debs/com.dontbeskid.colorfulwallpaperx_4.2k_iphoneos-arm64.deb
 Size: 2103268
-MD5sum: 7140d4fd9166e6437ba3d5a2a7606451
-SHA1: 231fa829eb534e901ad46922fa922b0c599c1dd8
-SHA256: 40b2f526a6534a3a24d335c4013417237b51f005c47a0e77ad5a55a287f8a97f
+MD5sum: 51e0656d9ba3a8234b8415e357ef60a5
+SHA1: 4d1125e86a3bfd316ee9054899f6bbbc916fbf53
+SHA256: 2aac1a2f7c0cd213e71d9ea6cd02400ead0c5c759b0e4be29a943bb918295ef2
 
 Package: com.ethxnn88.visibleisland
 Name: Visible Island
