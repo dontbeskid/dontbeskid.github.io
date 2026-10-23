@@ -82,6 +82,14 @@ done
 
 bash ./build.sh
 
+# --- Telegram button in all depictions ---
+for f in depictions/*.html; do
+  [ -f "$f" ] || continue
+  grep -q "t.me/iosexploiter" "$f" && continue
+  perl -i -pe 's{</body></html>}{<div style="margin-top:24px;padding-top:14px;border-top:1px solid #eee;text-align:center"><a href="https://t.me/iosexploiter" target="_blank" rel="noopener" style="display:inline-block;padding:10px 18px;border-radius:10px;background:#229ED9;color:#fff;text-decoration:none;font-size:14px;font-weight:600">Join Our Telegram</a></div></body></html>}g' "$f"
+done
+# --- end Telegram button ---
+
 git add -A
 git config user.email >/dev/null 2>&1 || { git config user.name "${USER:-user}"; git config user.email "${USER:-user}@users.noreply.github.com"; }
 git commit -q -m "add ${LAST:-tweak}" || echo "нечего коммитить"
