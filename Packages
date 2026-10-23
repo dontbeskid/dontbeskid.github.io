@@ -1,3 +1,21 @@
+Package: com.dontbeskid.colorfulwallpaperx
+Maintainer: dontbeskid
+Icon: https://dontbeskid.github.io/icons/com.dontbeskid.colorfulwallpaperx.png
+Name: Colorful Wallpaper X
+Description: Dynamic wallpaper with colorful effects. Cracked by CBZ!
+Author: Lessica
+Section: Tweaks
+Depends: firmware (>= 15.0), mobilesubstrate, preferenceloader
+Architecture: iphoneos-arm64
+Version: 5.5k
+Depiction: https://dontbeskid.github.io/depictions/com.dontbeskid.colorfulwallpaperx.html
+SileoDepiction: https://dontbeskid.github.io/depictions/native/com.dontbeskid.colorfulwallpaperx.json
+Filename: debs/com.dontbeskid.colorfulwallpaperx_5.5k_iphoneos-arm64.deb
+Size: 2493290
+MD5sum: d01d835aa9d8a379f7942e1d393ab653
+SHA1: ebc88f6707338c084ef2f22885b03c635d8e3aec
+SHA256: f5209501559dba825f1601a37abd0e4c1347237e1bf1dc8371ffaaa9e9061495
+
 Package: com.ethxnn88.visibleisland
 Name: Visible Island
 Description: Enable and fix Dynamic Island on older devices.
@@ -34,22 +52,4 @@ Size: 598096
 MD5sum: c78195bd7711d218b3aaab6b77fc89e8
 SHA1: 2ac5d3e483043be42f00ca823367d7f5a05fdf8f
 SHA256: f8499e6fcce9ccf8f24a1e103a1c4c1becdb898d3ef448b8b269dcd1b907cf98
-
-Package: xyz.cypwn.colorfulwallpaperx
-Maintainer: dontbeskid
-Depiction: https://repo.cypwn.xyz/depiction/3457
-SileoDepiction: https://repo.cypwn.xyz/sileo_depiction/3457
-Icon: https://dontbeskid.github.io/icons/xyz.cypwn.colorfulwallpaperx.png
-Name: Colorful Wallpaper X
-Description: Dynamic wallpaper with colorful effects. Cracked by CBZ!
-Author: Lessica
-Section: Tweaks
-Depends: firmware (>= 15.0), mobilesubstrate, preferenceloader, xyz.cypwn.82flexcrack
-Architecture: iphoneos-arm64
-Version: 5.5k
-Filename: debs/xyz.cypwn.colorfulwallpaperx_5.5k_iphoneos-arm64.deb
-Size: 2493332
-MD5sum: cd4e52d73d3ba0f5b0c757ab3e5d3ce4
-SHA1: 01aa9ffcfb343b9eec265c3d0c440e010a4a789e
-SHA256: 040307f1c945ebb591388d54d14dba4cba21b0f53ddb0faa55dda37ac8ecb37f
 
